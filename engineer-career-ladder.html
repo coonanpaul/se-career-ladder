@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Developer Career Ladder — Updated 2026</title>
+<title>Software Engineer Career Ladder — Updated 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -177,7 +177,7 @@
 
   .details-panel { flex: 1; min-width: 280px; }
 
-  .tab-bar { display: flex; gap: 2px; margin-bottom: 16px; }
+  .tab-bar { display: flex; gap: 2px; margin-bottom: 16px; flex-wrap: wrap; }
 
   .tab-btn {
     font-family: 'DM Sans', sans-serif;
@@ -368,7 +368,7 @@
 
 <div class="header">
   <div class="header-row">
-    <h1>Developer Career Ladder</h1>
+    <h1>Software Engineer Career Ladder</h1>
     <span class="badge">UPDATED 2026</span>
   </div>
   <p>Based on <span style="color:var(--text-secondary)">engineeringladders.com</span> — extended with
@@ -416,17 +416,17 @@ const AXES = [
 ];
 
 const LEVELS_META = [
-  { id:"D1", title:"Developer 1", senior:false },
-  { id:"D2", title:"Developer 2", senior:false },
-  { id:"D3", title:"Developer 3", senior:false },
-  { id:"D4", title:"Developer 4", senior:true },
-  { id:"D5", title:"Developer 5", senior:true },
-  { id:"D6", title:"Developer 6", senior:true },
-  { id:"D7", title:"Developer 7", senior:true },
+  { id:"L1", title:"Intern", senior:false },
+  { id:"L2", title:"Assoc SE", senior:false },
+  { id:"L3", title:"SE", senior:false },
+  { id:"L4", title:"Snr SE", senior:true },
+  { id:"L5", title:"Staff SE", senior:true },
+  { id:"L6", title:"Snr Staff SE", senior:true },
+  { id:"L7", title:"Principal SE", senior:true },
 ];
 
 const DATA = {
-  D1: {
+  L1: {
     scores: { technology:1, system:1, people:1, process:1, influence:1, product:1, ai:1 },
     details: {
       technology: { verb:"Adopts", desc:"Actively learns and adopts the technology and tools defined by the team." },
@@ -438,7 +438,7 @@ const DATA = {
       ai: { verb:"Uses", desc:"Uses AI coding assistants (e.g. copilot, chat-based tools) for code completion, boilerplate generation, and learning unfamiliar APIs. Understands AI output must be reviewed and tested." },
     }
   },
-  D2: {
+  L2: {
     scores: { technology:1, system:2, people:2, process:2, influence:1, product:1, ai:1 },
     details: {
       technology: { verb:"Adopts", desc:"Actively learns and adopts the technology and tools defined by the team." },
@@ -450,7 +450,7 @@ const DATA = {
       ai: { verb:"Uses", desc:"Regularly uses AI tools to accelerate development. Applies effective prompting to get higher-quality outputs. Can distinguish between helpful and unreliable AI suggestions." },
     }
   },
-  D3: {
+  L3: {
     scores: { technology:2, system:2, people:2, process:3, influence:2, product:2, ai:2 },
     details: {
       technology: { verb:"Specializes", desc:"Is the go-to person for one or more technologies and takes initiative to learn new ones." },
@@ -462,7 +462,7 @@ const DATA = {
       ai: { verb:"Integrates", desc:"Integrates AI tools into personal and team workflows beyond code completion — using them for test generation, documentation, code review prep, and debugging. Shares effective AI practices with teammates." },
     }
   },
-  D4: {
+  L4: {
     scores: { technology:3, system:3, people:3, process:3, influence:2, product:3, ai:3 },
     details: {
       technology: { verb:"Evangelizes", desc:"Researches, creates proofs of concept and introduces new technologies to the team." },
@@ -474,7 +474,7 @@ const DATA = {
       ai: { verb:"Orchestrates", desc:"Orchestrates AI across the development lifecycle — automated testing pipelines, AI-assisted code review, intelligent monitoring. Evaluates when AI adds value vs. introduces risk. Establishes team guidelines for responsible AI use in production code." },
     }
   },
-  D5: {
+  L5: {
     scores: { technology:4, system:4, people:3, process:4, influence:3, product:3, ai:3 },
     details: {
       technology: { verb:"Masters", desc:"Has very deep knowledge about the whole technology stack of the system." },
@@ -486,7 +486,7 @@ const DATA = {
       ai: { verb:"Orchestrates", desc:"Defines AI-augmented engineering practices across multiple teams. Evaluates and recommends AI tooling at the org level. Understands the cost, latency, and reliability trade-offs of AI-powered features in production systems." },
     }
   },
-  D6: {
+  L6: {
     scores: { technology:5, system:5, people:3, process:4, influence:4, product:4, ai:4 },
     details: {
       technology: { verb:"Creates", desc:"Designs and creates new technologies that are widely used either by internal or external teams." },
@@ -498,7 +498,7 @@ const DATA = {
       ai: { verb:"Architects", desc:"Architects AI-native systems and platforms. Designs the organisation's approach to AI in the development lifecycle — from coding to deployment to observability. Sets policy on AI governance, data handling, and model reliability for engineering." },
     }
   },
-  D7: {
+  L7: {
     scores: { technology:5, system:5, people:3, process:4, influence:5, product:5, ai:5 },
     details: {
       technology: { verb:"Creates", desc:"Designs and creates new technologies that are widely used either by internal or external teams." },
@@ -512,23 +512,81 @@ const DATA = {
   },
 };
 
-const PRODUCT_PROGRESSION = [
-  "Understands the product from a user perspective. Reads requirements, asks clarifying questions, and builds features that meet acceptance criteria.",
-  "Has working domain knowledge. Understands key metrics, user personas, and competitive context. Uses domain insight for better technical trade-offs.",
-  "Actively shapes product decisions with technical insight. Partners with product managers, proposes solutions to user problems, and identifies tech-unlocked opportunities.",
-  "Drives product strategy through technical vision. Identifies new product opportunities from emerging technology. Partners at the executive level to align tech investments with business outcomes.",
-  "Defines new product categories through deep domain mastery. Recognised as an industry thought leader who shapes how the domain evolves.",
-];
+// Progression descriptions for ALL axes
+const AXIS_PROGRESSIONS = {
+  technology: {
+    rationale: "This axis measures a developer's relationship with the technology stack — from learning what exists, through deep specialisation, to creating entirely new technologies that others depend on.",
+    descriptions: [
+      "Actively learns and adopts the technology and tools defined by the team. Focuses on becoming productive within the existing stack and building foundational competence.",
+      "Is the go-to person for one or more technologies and takes initiative to learn new ones. Develops depth in specific areas while maintaining breadth of awareness.",
+      "Researches, creates proofs of concept and introduces new technologies to the team. Stays ahead of the curve and helps the team make informed technology choices.",
+      "Has very deep knowledge about the whole technology stack of the system. Understands the interactions, trade-offs, and failure modes across all layers.",
+      "Designs and creates new technologies that are widely used either by internal or external teams. Pushes the boundaries of what's possible and shares innovations broadly.",
+    ],
+  },
+  system: {
+    rationale: "This axis tracks the level of ownership a developer takes over the systems they work on — from shipping features, through designing and owning production systems, to leading technical excellence at scale.",
+    descriptions: [
+      "Successfully pushes new features and bug fixes to improve and extend the system. Delivers working code that meets requirements and passes review.",
+      "Designs and implements medium to large size features while reducing the system's tech debt. Takes a holistic view of feature work and its impact on system health.",
+      "Owns the production operation and monitoring of the system and is aware of its SLAs. Takes responsibility for uptime, performance, and reliability beyond just feature delivery.",
+      "Evolves the architecture to support future requirements and defines its SLAs. Makes strategic technical decisions that position the system for long-term success.",
+      "Leads the technical excellence of the system and creates plans to mitigate outages. Sets the standard for engineering quality and operational resilience.",
+    ],
+  },
+  people: {
+    rationale: "This axis measures how a developer relates to and elevates the people around them — from learning effectively, through supporting and mentoring, to coordinating and managing teams.",
+    descriptions: [
+      "Quickly learns from others and consistently steps up when it is required. Is receptive to feedback, asks good questions, and grows visibly over time.",
+      "Proactively supports other team members and helps them to be successful. Shares knowledge, unblocks colleagues, and contributes to a positive team dynamic.",
+      "Mentors others to accelerate their career-growth and encourages them to participate. Takes an active role in developing the skills and confidence of more junior engineers.",
+      "Coordinates team members providing effective feedback and moderating discussions. Facilitates collaboration, resolves disagreements constructively, and keeps the team aligned.",
+      "Manages the team members' career, expectations, performance and level of happiness. Takes ownership of team health, growth, and retention at an organisational level.",
+    ],
+  },
+  process: {
+    rationale: "This axis captures a developer's engagement with how work gets done — from following established processes, through challenging and improving them, to defining the right processes for the team's maturity.",
+    descriptions: [
+      "Follows the team processes, delivering a consistent flow of features to production. Understands and respects the team's established ways of working.",
+      "Enforces the team processes, making sure everybody understands the benefits and tradeoffs. Helps maintain discipline and consistency across the team.",
+      "Challenges the team processes, looking for ways to improve them. Questions the status quo constructively and proposes better alternatives based on evidence.",
+      "Adjusts the team processes, listening to feedback and guiding the team through the changes. Implements process improvements thoughtfully, balancing speed with team buy-in.",
+      "Defines the right processes for the team's maturity level, balancing agility and discipline. Designs ways of working that scale with the team and organisation.",
+    ],
+  },
+  influence: {
+    rationale: "This axis is orthogonal to all others — it measures the scope at which a developer's contributions are felt, from a single subsystem through to the broader engineering community.",
+    descriptions: [
+      "Makes an impact on one or more subsystems or team pods. Contributions are visible and valued within a focused area of the codebase or product.",
+      "Makes an impact on the whole team, not just on specific parts of it. Is recognised as someone who elevates the team's overall output and culture.",
+      "Makes an impact not only on the whole team but also on other teams. Shares expertise, influences decisions, and contributes beyond team boundaries.",
+      "Makes an impact on the whole tech organisation. Drives initiatives, sets standards, or solves problems that benefit engineering across the company.",
+      "Makes an impact on the tech community. Contributes through open source, publishing, speaking, or shaping industry practices beyond the company.",
+    ],
+  },
+  product: {
+    rationale: "The original framework measures <em>how</em> developers work but not <em>what they understand about the problem space</em>. The best engineers aren't just technically proficient — they deeply understand their domain and use that knowledge to make better decisions, challenge requirements, and spot opportunities. This axis rewards developers who invest in understanding the business, the users, and the competitive landscape alongside their craft.",
+    descriptions: [
+      "Understands the product from a user perspective. Reads requirements, asks clarifying questions, and builds features that meet acceptance criteria.",
+      "Has working domain knowledge. Understands key metrics, user personas, and competitive context. Uses domain insight for better technical trade-offs.",
+      "Actively shapes product decisions with technical insight. Partners with product managers, proposes solutions to user problems, and identifies tech-unlocked opportunities.",
+      "Drives product strategy through technical vision. Identifies new product opportunities from emerging technology. Partners at the executive level to align tech investments with business outcomes.",
+      "Defines new product categories through deep domain mastery. Recognised as an industry thought leader who shapes how the domain evolves.",
+    ],
+  },
+  ai: {
+    rationale: "AI is becoming as foundational to engineering as version control or CI/CD. This dedicated vector measures a developer's ability to leverage AI tools effectively and responsibly — a competence that deserves explicit measurement in its own right. It spans from basic tool adoption through to pioneering new AI-augmented engineering practices, and explicitly includes governance, reliability, and ethical considerations at senior levels — reflecting that AI utilisation isn't just about productivity, it's about judgment.",
+    descriptions: [
+      "Uses AI coding assistants for code completion, boilerplate, and learning unfamiliar APIs. Understands that AI output must always be reviewed, tested, and validated.",
+      "Integrates AI tools into workflows beyond code completion — test generation, documentation, code review prep, debugging. Shares effective AI practices with the team.",
+      "Orchestrates AI across the development lifecycle — automated testing, AI-assisted review, intelligent monitoring. Evaluates when AI adds value vs. introduces risk. Establishes team guidelines for responsible AI use.",
+      "Architects AI-native systems and platforms. Designs the organisation's approach to AI in the development lifecycle. Sets policy on AI governance, data handling, and model reliability for engineering.",
+      "Pioneers novel AI-augmented engineering approaches that influence the industry. Contributes to open-source AI tooling and shapes the broader conversation on AI in software development, including ethics and limitations.",
+    ],
+  },
+};
 
-const AI_PROGRESSION = [
-  "Uses AI coding assistants for code completion, boilerplate, and learning unfamiliar APIs. Understands that AI output must always be reviewed, tested, and validated.",
-  "Integrates AI tools into workflows beyond code completion — test generation, documentation, code review prep, debugging. Shares effective AI practices with the team.",
-  "Orchestrates AI across the development lifecycle — automated testing, AI-assisted review, intelligent monitoring. Evaluates when AI adds value vs. introduces risk. Establishes team guidelines for responsible AI use.",
-  "Architects AI-native systems and platforms. Designs the organisation's approach to AI in the development lifecycle. Sets policy on AI governance, data handling, and model reliability for engineering.",
-  "Pioneers novel AI-augmented engineering approaches that influence the industry. Contributes to open-source AI tooling and shapes the broader conversation on AI in software development, including ethics and limitations.",
-];
-
-let selectedLevel = "D4";
+let selectedLevel = "L4";
 let selectedTab = "overview";
 
 function init() {
@@ -549,12 +607,20 @@ function renderLevelSelector() {
 function renderTabBar() {
   const tabs = [
     { key:"overview", label:"All Vectors" },
+    { key:"technology", label:"Technology" },
+    { key:"system", label:"System" },
+    { key:"people", label:"People" },
+    { key:"process", label:"Process" },
+    { key:"influence", label:"Influence" },
     { key:"product", label:"Product / Domain" },
     { key:"ai", label:"AI Utilisation" },
   ];
-  document.getElementById('tabBar').innerHTML = tabs.map(t =>
-    `<button class="tab-btn ${t.key === selectedTab ? 'active' : ''}" onclick="selectTab('${t.key}')">${t.label}</button>`
-  ).join('');
+  document.getElementById('tabBar').innerHTML = tabs.map(t => {
+    const axis = AXES.find(a => a.key === t.key);
+    const dotColor = axis ? axis.color : '';
+    const dot = axis ? `<span style="display:inline-block;width:6px;height:6px;border-radius:2px;background:${dotColor};margin-right:5px;vertical-align:middle"></span>` : '';
+    return `<button class="tab-btn ${t.key === selectedTab ? 'active' : ''}" onclick="selectTab('${t.key}')">${dot}${t.label}</button>`;
+  }).join('');
 }
 
 function selectLevel(id) {
@@ -672,70 +738,44 @@ function renderTabContent() {
         <p class="vector-desc">${d.desc}</p>
       </div>`;
     }).join('');
+    return;
   }
 
-  else if (selectedTab === 'product') {
-    const axis = AXES.find(a => a.key === 'product');
-    let html = `<div class="rationale-box product-box">
-      <h3 style="color:var(--product)">Product / Domain — Why this vector?</h3>
-      <p>The original framework measures <em>how</em> developers work but not <em>what they understand about the problem space</em>.
-      The best engineers aren't just technically proficient — they deeply understand their domain and use that knowledge
-      to make better decisions, challenge requirements, and spot opportunities. This axis rewards developers who
-      invest in understanding the business, the users, and the competitive landscape alongside their craft.</p>
-    </div>
-    <h4 class="section-heading" style="color:var(--product)">PROGRESSION AT EACH LEVEL</h4>`;
+  // All other tabs use the generic axis deep-dive renderer
+  const axisKey = selectedTab;
+  const axis = AXES.find(a => a.key === axisKey);
+  const progression = AXIS_PROGRESSIONS[axisKey];
+  if (!axis || !progression) return;
 
-    axis.levels.forEach((name, i) => {
-      const val = i + 1;
-      const isActive = data.scores.product >= val;
-      const isCurrent = data.scores.product === val;
-      html += `<div class="progression-item ${isCurrent ? 'active-current product-current' : ''}"
-        style="opacity:${isActive ? 1 : 0.35};${isCurrent ? 'background:rgba(199,125,186,0.08)' : ''}">
-        <div class="progression-num" style="color:var(--product)">${val}</div>
-        <div>
-          <div class="progression-name">${name}${isCurrent ? '<span class="current-marker" style="color:var(--product)">&larr; CURRENT</span>' : ''}</div>
-          <p class="progression-desc">${PRODUCT_PROGRESSION[i]}</p>
-        </div>
-      </div>`;
-    });
-    el.innerHTML = html;
-  }
+  const isNewAxis = axis.isNew;
+  const boxClass = axisKey === 'product' ? 'product-box' : axisKey === 'ai' ? 'ai-box' : '';
+  const boxBg = !isNewAxis ? `background:${axis.color}0a;border:1px solid ${axis.color}30;` : '';
 
-  else if (selectedTab === 'ai') {
-    const axis = AXES.find(a => a.key === 'ai');
-    let html = `<div class="rationale-box ai-box">
-      <h3 style="color:var(--accent)">AI Utilisation — Design rationale</h3>
-      <p>AI is becoming as foundational to engineering as version control or CI/CD. Rather than adding AI to every existing axis
-      (which would conflate AI skill with domain-specific competence), this dedicated vector measures a developer's ability
-      to leverage AI tools effectively and responsibly. It spans from basic tool adoption through to pioneering new
-      AI-augmented engineering practices. It also explicitly includes governance, reliability, and ethical considerations
-      at senior levels — reflecting that AI utilisation isn't just about productivity, it's about judgment.</p>
-    </div>
-    <h4 class="section-heading" style="color:var(--accent)">PROGRESSION AT EACH LEVEL</h4>`;
+  let html = `<div class="rationale-box ${boxClass}" ${!isNewAxis ? `style="${boxBg}border-radius:10px;padding:20px;margin-bottom:16px"` : ''}>
+    <h3 style="color:${axis.color};font-family:'Space Mono',monospace;font-size:14px;font-weight:700;margin-bottom:8px">${axis.label}</h3>
+    <p style="font-size:12.5px;color:#a0a8b4;line-height:1.6">${progression.rationale}</p>
+  </div>
+  <h4 class="section-heading" style="color:${axis.color}">PROGRESSION AT EACH LEVEL</h4>`;
 
-    axis.levels.forEach((name, i) => {
-      const val = i + 1;
-      const isActive = data.scores.ai >= val;
-      const isCurrent = data.scores.ai === val;
-      html += `<div class="progression-item ${isCurrent ? 'active-current' : ''}"
-        style="opacity:${isActive ? 1 : 0.35};${isCurrent ? 'background:rgba(0,180,216,0.08)' : ''}">
-        <div class="progression-num" style="color:var(--accent)">${val}</div>
-        <div>
-          <div class="progression-name">${name}${isCurrent ? '<span class="current-marker" style="color:var(--accent)">&larr; CURRENT</span>' : ''}</div>
-          <p class="progression-desc">${AI_PROGRESSION[i]}</p>
-        </div>
-      </div>`;
-    });
+  axis.levels.forEach((name, i) => {
+    const val = i + 1;
+    const score = data.scores[axisKey];
+    const isActive = score >= val;
+    const isCurrent = score === val;
+    const currentBg = isCurrent ? `background:${axis.color}14` : '';
+    const currentBorder = isCurrent ? `border-color:${axis.color}40` : '';
 
-    html += `<div class="design-rationale">
-      <h4>WHY A SEPARATE AXIS (NOT EMBEDDED)?</h4>
-      <p><strong>Clarity of expectation:</strong> A dedicated axis makes AI competence explicitly measurable and discussable in career conversations.</p>
-      <p><strong>Avoids dilution:</strong> Embedding AI into Technology or System would blur what we're actually measuring on those axes.</p>
-      <p><strong>Future-proof:</strong> As AI tooling evolves rapidly, a separate axis can be updated independently without restructuring the entire framework.</p>
+    html += `<div class="progression-item ${isCurrent ? 'active-current' : ''}"
+      style="opacity:${isActive ? 1 : 0.35};${currentBg};${currentBorder}">
+      <div class="progression-num" style="color:${axis.color}">${val}</div>
+      <div>
+        <div class="progression-name">${name}${isCurrent ? `<span class="current-marker" style="color:${axis.color}">&larr; CURRENT</span>` : ''}</div>
+        <p class="progression-desc">${progression.descriptions[i]}</p>
+      </div>
     </div>`;
+  });
 
-    el.innerHTML = html;
-  }
+  el.innerHTML = html;
 }
 
 init();
