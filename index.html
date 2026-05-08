@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Developer Career Ladder — Updated 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary: #0d1117;
+    --bg-secondary: #161b22;
+    --text-primary: #e6edf3;
+    --text-secondary: #c9d1d9;
+    --text-muted: #8b949e;
+    --text-dim: #6e7681;
+    --border: rgba(255,255,255,0.06);
+    --border-light: rgba(255,255,255,0.04);
+    --accent: #00b4d8;
+    --accent-bg: rgba(0,180,216,0.1);
+    --accent-border: rgba(0,180,216,0.2);
+    --product: #c77dba;
+    --product-bg: rgba(199,125,186,0.06);
+    --product-border: rgba(199,125,186,0.2);
+    --technology: #e07a5f;
+    --system: #3d405b;
+    --people: #81b29a;
+    --process: #f2cc8f;
+    --influence: #7f95d1;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', 'Segoe UI', sans-serif;
+    background: linear-gradient(145deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
+    color: var(--text-secondary);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .header {
+    border-bottom: 1px solid var(--border);
+    padding: 28px 32px 20px;
+    background: linear-gradient(180deg, rgba(0,180,216,0.04) 0%, transparent 100%);
+  }
+
+  .header-row {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .header h1 {
+    font-family: 'Space Mono', monospace;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
+  }
+
+  .badge {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--accent);
+    background: var(--accent-bg);
+    padding: 3px 8px;
+    border-radius: 4px;
+    border: 1px solid var(--accent-border);
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .header p {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 6px;
+    line-height: 1.5;
+    max-width: 680px;
+  }
+
+  .level-selector {
+    display: flex;
+    gap: 4px;
+    padding: 16px 32px;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+  }
+
+  .level-btn {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: rgba(255,255,255,0.04);
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+
+  .level-btn:hover { background: rgba(255,255,255,0.08); }
+
+  .level-btn.active {
+    background: linear-gradient(135deg, #00b4d8, #0077b6);
+    color: #fff;
+    box-shadow: 0 2px 12px rgba(0,180,216,0.3);
+  }
+
+  .level-btn .sr { font-size: 8px; margin-left: 4px; opacity: 0.7; }
+
+  .main {
+    padding: 24px 32px;
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  .radar-panel { flex: 0 0 auto; }
+
+  .radar-card {
+    background: rgba(255,255,255,0.02);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    padding: 20px;
+  }
+
+  .radar-title-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .radar-title-row h2 {
+    font-family: 'Space Mono', monospace;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .radar-title-row .subtitle { font-size: 13px; color: var(--text-muted); }
+
+  .senior-badge {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #f0883e;
+    background: rgba(240,136,62,0.1);
+    padding: 2px 6px;
+    border-radius: 3px;
+  }
+
+  .legend {
+    margin-top: 12px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px 16px;
+    font-size: 11px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 0;
+  }
+
+  .legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .details-panel { flex: 1; min-width: 280px; }
+
+  .tab-bar { display: flex; gap: 2px; margin-bottom: 16px; }
+
+  .tab-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 7px 14px;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s;
+    background: transparent;
+    color: var(--text-muted);
+  }
+
+  .tab-btn:hover { background: rgba(255,255,255,0.04); }
+  .tab-btn.active { background: rgba(0,180,216,0.12); color: var(--accent); }
+
+  .vector-card {
+    background: rgba(255,255,255,0.02);
+    border-radius: 8px;
+    padding: 14px 16px;
+    border: 1px solid var(--border-light);
+    margin-bottom: 8px;
+    animation: fadeSlideIn 0.3s ease forwards;
+    opacity: 0;
+  }
+
+  .vector-card.new-product {
+    background: linear-gradient(135deg, rgba(199,125,186,0.03), rgba(199,125,186,0.015));
+    border-color: rgba(199,125,186,0.18);
+  }
+
+  .vector-card.new-ai {
+    background: linear-gradient(135deg, rgba(0,180,216,0.03), rgba(0,180,216,0.015));
+    border-color: rgba(0,180,216,0.18);
+  }
+
+  @keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .vector-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+
+  .vector-dot { width: 6px; height: 6px; border-radius: 2px; }
+
+  .vector-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  .vector-verb {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .new-tag {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--accent);
+    background: var(--accent-bg);
+    padding: 1px 5px;
+    border-radius: 3px;
+  }
+
+  .vector-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+
+  .rationale-box {
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+
+  .rationale-box.product-box {
+    background: var(--product-bg);
+    border: 1px solid var(--product-border);
+  }
+
+  .rationale-box.ai-box {
+    background: rgba(0,180,216,0.06);
+    border: 1px solid var(--accent-border);
+  }
+
+  .rationale-box h3 {
+    font-family: 'Space Mono', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .rationale-box p {
+    font-size: 12.5px;
+    color: #a0a8b4;
+    line-height: 1.6;
+  }
+
+  .section-heading {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+  }
+
+  .progression-item {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+  }
+
+  .progression-item.active-current { border-color: rgba(0,180,216,0.25); }
+  .progression-item.active-current.product-current { border-color: rgba(199,125,186,0.25); }
+
+  .progression-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1;
+    min-width: 24px;
+  }
+
+  .progression-name {
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+  }
+
+  .current-marker { font-size: 9px; margin-left: 8px; }
+
+  .progression-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .design-rationale {
+    margin-top: 16px;
+    background: rgba(255,255,255,0.02);
+    border-radius: 8px;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+  }
+
+  .design-rationale h4 {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+
+  .design-rationale p {
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.6;
+    margin-bottom: 6px;
+  }
+
+  .design-rationale p:last-child { margin-bottom: 0; }
+  .design-rationale strong { color: var(--text-secondary); font-weight: 600; }
+
+  @media (max-width: 700px) {
+    .header, .level-selector, .main { padding-left: 16px; padding-right: 16px; }
+    .main { flex-direction: column; }
+    .legend { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-row">
+    <h1>Developer Career Ladder</h1>
+    <span class="badge">UPDATED 2026</span>
+  </div>
+  <p>Based on <span style="color:var(--text-secondary)">engineeringladders.com</span> — extended with
+    <span style="color:var(--product);font-weight:600">Product / Domain</span> and
+    <span style="color:var(--accent);font-weight:600">AI Utilisation</span> vectors.</p>
+</div>
+
+<div class="level-selector" id="levelSelector"></div>
+
+<div class="main">
+  <div class="radar-panel">
+    <div class="radar-card">
+      <div class="radar-title-row">
+        <h2 id="levelId"></h2>
+        <span class="subtitle" id="levelTitle"></span>
+        <span class="senior-badge" id="seniorBadge" style="display:none">SENIOR</span>
+      </div>
+      <svg id="radarChart" viewBox="0 0 280 280" width="280" height="280"></svg>
+    </div>
+    <div class="legend" id="legend"></div>
+  </div>
+
+  <div class="details-panel">
+    <div class="tab-bar" id="tabBar"></div>
+    <div id="tabContent"></div>
+  </div>
+</div>
+
+<script>
+const AXES = [
+  { key:"technology", label:"Technology", color:"#e07a5f", isNew:false,
+    levels:["Adopts","Specializes","Evangelizes","Masters","Creates"] },
+  { key:"system", label:"System", color:"#3d405b", isNew:false,
+    levels:["Enhances","Designs","Owns","Evolves","Leads"] },
+  { key:"people", label:"People", color:"#81b29a", isNew:false,
+    levels:["Learns","Supports","Mentors","Coordinates","Manages"] },
+  { key:"process", label:"Process", color:"#f2cc8f", isNew:false,
+    levels:["Follows","Enforces","Challenges","Adjusts","Defines"] },
+  { key:"influence", label:"Influence", color:"#7f95d1", isNew:false,
+    levels:["Subsystem","Team","Multiple Teams","Company","Community"] },
+  { key:"product", label:"Product / Domain", color:"#c77dba", isNew:true,
+    levels:["Consumes","Understands","Shapes","Drives","Defines"] },
+  { key:"ai", label:"AI Utilisation", color:"#00b4d8", isNew:true,
+    levels:["Uses","Integrates","Orchestrates","Architects","Pioneers"] },
+];
+
+const LEVELS_META = [
+  { id:"D1", title:"Developer 1", senior:false },
+  { id:"D2", title:"Developer 2", senior:false },
+  { id:"D3", title:"Developer 3", senior:false },
+  { id:"D4", title:"Developer 4", senior:true },
+  { id:"D5", title:"Developer 5", senior:true },
+  { id:"D6", title:"Developer 6", senior:true },
+  { id:"D7", title:"Developer 7", senior:true },
+];
+
+const DATA = {
+  D1: {
+    scores: { technology:1, system:1, people:1, process:1, influence:1, product:1, ai:1 },
+    details: {
+      technology: { verb:"Adopts", desc:"Actively learns and adopts the technology and tools defined by the team." },
+      system: { verb:"Enhances", desc:"Successfully pushes new features and bug fixes to improve and extend the system." },
+      people: { verb:"Learns", desc:"Quickly learns from others and consistently steps up when it is required." },
+      process: { verb:"Follows", desc:"Follows the team processes, delivering a consistent flow of features to production." },
+      influence: { verb:"Subsystem", desc:"Makes an impact on one or more subsystems or team pods." },
+      product: { verb:"Consumes", desc:"Understands the product they work on from a user's perspective. Reads requirements, asks clarifying questions, and builds features that meet stated acceptance criteria." },
+      ai: { verb:"Uses", desc:"Uses AI coding assistants (e.g. copilot, chat-based tools) for code completion, boilerplate generation, and learning unfamiliar APIs. Understands AI output must be reviewed and tested." },
+    }
+  },
+  D2: {
+    scores: { technology:1, system:2, people:2, process:2, influence:1, product:1, ai:1 },
+    details: {
+      technology: { verb:"Adopts", desc:"Actively learns and adopts the technology and tools defined by the team." },
+      system: { verb:"Designs", desc:"Designs and implements medium to large size features while reducing the system's tech debt." },
+      people: { verb:"Supports", desc:"Proactively supports other team members and helps them to be successful." },
+      process: { verb:"Enforces", desc:"Enforces the team processes, making sure everybody understands the benefits and tradeoffs." },
+      influence: { verb:"Subsystem", desc:"Makes an impact on one or more subsystems or team pods." },
+      product: { verb:"Consumes", desc:"Builds awareness of the broader product and its users. Can explain why features exist, not just how they work. Proactively flags when requirements seem to conflict with user needs." },
+      ai: { verb:"Uses", desc:"Regularly uses AI tools to accelerate development. Applies effective prompting to get higher-quality outputs. Can distinguish between helpful and unreliable AI suggestions." },
+    }
+  },
+  D3: {
+    scores: { technology:2, system:2, people:2, process:3, influence:2, product:2, ai:2 },
+    details: {
+      technology: { verb:"Specializes", desc:"Is the go-to person for one or more technologies and takes initiative to learn new ones." },
+      system: { verb:"Designs", desc:"Designs and implements medium to large size features while reducing the system's tech debt." },
+      people: { verb:"Supports", desc:"Proactively supports other team members and helps them to be successful." },
+      process: { verb:"Challenges", desc:"Challenges the team processes, looking for ways to improve them." },
+      influence: { verb:"Team", desc:"Makes an impact on the whole team, not just on specific parts of it." },
+      product: { verb:"Understands", desc:"Has working knowledge of the business domain. Understands key metrics, user personas, and competitive context. Uses domain knowledge to make better technical trade-offs without always waiting for product direction." },
+      ai: { verb:"Integrates", desc:"Integrates AI tools into personal and team workflows beyond code completion — using them for test generation, documentation, code review prep, and debugging. Shares effective AI practices with teammates." },
+    }
+  },
+  D4: {
+    scores: { technology:3, system:3, people:3, process:3, influence:2, product:3, ai:3 },
+    details: {
+      technology: { verb:"Evangelizes", desc:"Researches, creates proofs of concept and introduces new technologies to the team." },
+      system: { verb:"Owns", desc:"Owns the production operation and monitoring of the system and is aware of its SLAs." },
+      people: { verb:"Mentors", desc:"Mentors others to accelerate their career-growth and encourages them to participate." },
+      process: { verb:"Challenges", desc:"Challenges the team processes, looking for ways to improve them." },
+      influence: { verb:"Team", desc:"Makes an impact on the whole team, not just on specific parts of it." },
+      product: { verb:"Shapes", desc:"Actively shapes product decisions with technical insight. Partners with product managers and designers, proposes technically-informed solutions to user problems, and identifies opportunities where technology can unlock product value others haven't seen." },
+      ai: { verb:"Orchestrates", desc:"Orchestrates AI across the development lifecycle — automated testing pipelines, AI-assisted code review, intelligent monitoring. Evaluates when AI adds value vs. introduces risk. Establishes team guidelines for responsible AI use in production code." },
+    }
+  },
+  D5: {
+    scores: { technology:4, system:4, people:3, process:4, influence:3, product:3, ai:3 },
+    details: {
+      technology: { verb:"Masters", desc:"Has very deep knowledge about the whole technology stack of the system." },
+      system: { verb:"Evolves", desc:"Evolves the architecture to support future requirements and defines its SLAs." },
+      people: { verb:"Mentors", desc:"Mentors others to accelerate their career-growth and encourages them to participate." },
+      process: { verb:"Adjusts", desc:"Adjusts the team processes, listening to feedback and guiding the team through the changes." },
+      influence: { verb:"Multiple Teams", desc:"Makes an impact not only on the whole team but also on other teams." },
+      product: { verb:"Shapes", desc:"Influences product roadmap through deep domain expertise. Identifies systemic product issues before they surface. Bridges the gap between customer needs and architectural decisions across multiple teams." },
+      ai: { verb:"Orchestrates", desc:"Defines AI-augmented engineering practices across multiple teams. Evaluates and recommends AI tooling at the org level. Understands the cost, latency, and reliability trade-offs of AI-powered features in production systems." },
+    }
+  },
+  D6: {
+    scores: { technology:5, system:5, people:3, process:4, influence:4, product:4, ai:4 },
+    details: {
+      technology: { verb:"Creates", desc:"Designs and creates new technologies that are widely used either by internal or external teams." },
+      system: { verb:"Leads", desc:"Leads the technical excellence of the system and creates plans to mitigate outages." },
+      people: { verb:"Mentors", desc:"Mentors others to accelerate their career-growth and encourages them to participate." },
+      process: { verb:"Adjusts", desc:"Adjusts the team processes, listening to feedback and guiding the team through the changes." },
+      influence: { verb:"Company", desc:"Makes an impact on the whole tech organization." },
+      product: { verb:"Drives", desc:"Drives product strategy through technical vision. Identifies new product opportunities from emerging technology trends. Partners at the executive level to align technical investments with business outcomes across the organization." },
+      ai: { verb:"Architects", desc:"Architects AI-native systems and platforms. Designs the organisation's approach to AI in the development lifecycle — from coding to deployment to observability. Sets policy on AI governance, data handling, and model reliability for engineering." },
+    }
+  },
+  D7: {
+    scores: { technology:5, system:5, people:3, process:4, influence:5, product:5, ai:5 },
+    details: {
+      technology: { verb:"Creates", desc:"Designs and creates new technologies that are widely used either by internal or external teams." },
+      system: { verb:"Leads", desc:"Leads the technical excellence of the system and creates plans to mitigate outages." },
+      people: { verb:"Mentors", desc:"Mentors others to accelerate their career-growth and encourages them to participate." },
+      process: { verb:"Adjusts", desc:"Adjusts the team processes, listening to feedback and guiding the team through the changes." },
+      influence: { verb:"Community", desc:"Makes an impact on the tech community." },
+      product: { verb:"Defines", desc:"Defines entirely new product categories or market positions through deep domain mastery and technical vision. Recognised industry-wide as a thought leader who shapes how the domain evolves. Their product intuition and technical insight set the strategic direction for the company." },
+      ai: { verb:"Pioneers", desc:"Pioneers novel approaches to AI-augmented engineering that influence the industry. Publishes, speaks, or contributes to open-source AI tooling. Shapes the broader conversation on how AI transforms software development, including its ethical implications and limitations." },
+    }
+  },
+};
+
+const PRODUCT_PROGRESSION = [
+  "Understands the product from a user perspective. Reads requirements, asks clarifying questions, and builds features that meet acceptance criteria.",
+  "Has working domain knowledge. Understands key metrics, user personas, and competitive context. Uses domain insight for better technical trade-offs.",
+  "Actively shapes product decisions with technical insight. Partners with product managers, proposes solutions to user problems, and identifies tech-unlocked opportunities.",
+  "Drives product strategy through technical vision. Identifies new product opportunities from emerging technology. Partners at the executive level to align tech investments with business outcomes.",
+  "Defines new product categories through deep domain mastery. Recognised as an industry thought leader who shapes how the domain evolves.",
+];
+
+const AI_PROGRESSION = [
+  "Uses AI coding assistants for code completion, boilerplate, and learning unfamiliar APIs. Understands that AI output must always be reviewed, tested, and validated.",
+  "Integrates AI tools into workflows beyond code completion — test generation, documentation, code review prep, debugging. Shares effective AI practices with the team.",
+  "Orchestrates AI across the development lifecycle — automated testing, AI-assisted review, intelligent monitoring. Evaluates when AI adds value vs. introduces risk. Establishes team guidelines for responsible AI use.",
+  "Architects AI-native systems and platforms. Designs the organisation's approach to AI in the development lifecycle. Sets policy on AI governance, data handling, and model reliability for engineering.",
+  "Pioneers novel AI-augmented engineering approaches that influence the industry. Contributes to open-source AI tooling and shapes the broader conversation on AI in software development, including ethics and limitations.",
+];
+
+let selectedLevel = "D4";
+let selectedTab = "overview";
+
+function init() {
+  renderLevelSelector();
+  renderTabBar();
+  update();
+}
+
+function renderLevelSelector() {
+  const el = document.getElementById('levelSelector');
+  el.innerHTML = LEVELS_META.map(l =>
+    `<button class="level-btn ${l.id === selectedLevel ? 'active' : ''}" data-id="${l.id}" onclick="selectLevel('${l.id}')">
+      ${l.id}${l.senior ? '<span class="sr">SR</span>' : ''}
+    </button>`
+  ).join('');
+}
+
+function renderTabBar() {
+  const tabs = [
+    { key:"overview", label:"All Vectors" },
+    { key:"product", label:"Product / Domain" },
+    { key:"ai", label:"AI Utilisation" },
+  ];
+  document.getElementById('tabBar').innerHTML = tabs.map(t =>
+    `<button class="tab-btn ${t.key === selectedTab ? 'active' : ''}" onclick="selectTab('${t.key}')">${t.label}</button>`
+  ).join('');
+}
+
+function selectLevel(id) {
+  selectedLevel = id;
+  selectedTab = "overview";
+  renderLevelSelector();
+  renderTabBar();
+  update();
+}
+
+function selectTab(key) {
+  selectedTab = key;
+  renderTabBar();
+  renderTabContent();
+}
+
+function update() {
+  const meta = LEVELS_META.find(l => l.id === selectedLevel);
+  const data = DATA[selectedLevel];
+
+  document.getElementById('levelId').textContent = meta.id;
+  document.getElementById('levelTitle').textContent = meta.title;
+  const badge = document.getElementById('seniorBadge');
+  badge.style.display = meta.senior ? 'inline' : 'none';
+
+  drawRadar(data.scores);
+  renderLegend(data.scores);
+  renderTabContent();
+}
+
+function drawRadar(scores) {
+  const svg = document.getElementById('radarChart');
+  const size = 280, cx = size/2, cy = size/2, maxR = size/2 - 40, levels = 5;
+  const n = AXES.length;
+  const angleStep = (2 * Math.PI) / n;
+  const startAngle = -Math.PI / 2;
+
+  const getPoint = (i, val) => {
+    const angle = startAngle + i * angleStep;
+    const r = (val / levels) * maxR;
+    return { x: cx + r * Math.cos(angle), y: cy + r * Math.sin(angle) };
+  };
+
+  let html = '';
+
+  // Grid
+  for (let l = 1; l <= levels; l++) {
+    const pts = [];
+    for (let i = 0; i < n; i++) pts.push(getPoint(i, l));
+    const d = pts.map((p,i) => `${i===0?'M':'L'}${p.x},${p.y}`).join(' ') + 'Z';
+    html += `<path d="${d}" fill="none" stroke="rgba(120,120,140,0.15)" stroke-width="1"/>`;
+  }
+
+  // Spokes
+  for (let i = 0; i < n; i++) {
+    const p = getPoint(i, levels);
+    html += `<line x1="${cx}" y1="${cy}" x2="${p.x}" y2="${p.y}" stroke="rgba(120,120,140,0.12)" stroke-width="1"/>`;
+  }
+
+  // Data polygon
+  const dataPts = AXES.map((a,i) => getPoint(i, scores[a.key] || 0));
+  const dataPath = dataPts.map((p,i) => `${i===0?'M':'L'}${p.x},${p.y}`).join(' ') + 'Z';
+  html += `<path d="${dataPath}" fill="rgba(0,180,216,0.12)" stroke="#00b4d8" stroke-width="2"/>`;
+
+  // Data points
+  dataPts.forEach((p,i) => {
+    html += `<circle cx="${p.x}" cy="${p.y}" r="4" fill="${AXES[i].color}" stroke="#fff" stroke-width="1.5"/>`;
+  });
+
+  // Labels
+  AXES.forEach((a,i) => {
+    const angle = startAngle + i * angleStep;
+    const r = maxR + 24;
+    const lx = cx + r * Math.cos(angle);
+    const ly = cy + r * Math.sin(angle);
+    const anchor = lx < cx - 5 ? 'end' : lx > cx + 5 ? 'start' : 'middle';
+    html += `<text x="${lx}" y="${ly}" text-anchor="${anchor}" dominant-baseline="central"
+      style="font-size:9px;font-family:'DM Sans',sans-serif;font-weight:600;fill:${a.color}">${a.label}</text>`;
+    if (a.isNew) {
+      const nx = lx;
+      html += `<text x="${nx}" y="${ly+11}" text-anchor="${anchor}" dominant-baseline="central"
+        style="font-size:7px;font-family:'DM Sans',sans-serif;font-weight:700;fill:#00b4d8;letter-spacing:0.5px">NEW</text>`;
+    }
+  });
+
+  svg.innerHTML = html;
+}
+
+function renderLegend(scores) {
+  document.getElementById('legend').innerHTML = AXES.map(a => {
+    const lvlName = a.levels[(scores[a.key] || 1) - 1];
+    const style = a.isNew ? `color:${a.color};font-weight:600` : `color:var(--text-muted)`;
+    return `<div class="legend-item">
+      <div class="legend-dot" style="background:${a.color}"></div>
+      <span style="${style}">${a.label} — ${lvlName}</span>
+    </div>`;
+  }).join('');
+}
+
+function renderTabContent() {
+  const data = DATA[selectedLevel];
+  const el = document.getElementById('tabContent');
+
+  if (selectedTab === 'overview') {
+    el.innerHTML = AXES.map((axis, idx) => {
+      const d = data.details[axis.key];
+      const cls = axis.isNew ? (axis.key === 'product' ? 'new-product' : 'new-ai') : '';
+      return `<div class="vector-card ${cls}" style="animation-delay:${idx * 40}ms">
+        <div class="vector-header">
+          <div class="vector-dot" style="background:${axis.color}"></div>
+          <span class="vector-label" style="color:${axis.color}">${axis.label.toUpperCase()}</span>
+          <span class="vector-verb">&rarr; ${d.verb}</span>
+          ${axis.isNew ? '<span class="new-tag">NEW</span>' : ''}
+        </div>
+        <p class="vector-desc">${d.desc}</p>
+      </div>`;
+    }).join('');
+  }
+
+  else if (selectedTab === 'product') {
+    const axis = AXES.find(a => a.key === 'product');
+    let html = `<div class="rationale-box product-box">
+      <h3 style="color:var(--product)">Product / Domain — Why this vector?</h3>
+      <p>The original framework measures <em>how</em> developers work but not <em>what they understand about the problem space</em>.
+      The best engineers aren't just technically proficient — they deeply understand their domain and use that knowledge
+      to make better decisions, challenge requirements, and spot opportunities. This axis rewards developers who
+      invest in understanding the business, the users, and the competitive landscape alongside their craft.</p>
+    </div>
+    <h4 class="section-heading" style="color:var(--product)">PROGRESSION AT EACH LEVEL</h4>`;
+
+    axis.levels.forEach((name, i) => {
+      const val = i + 1;
+      const isActive = data.scores.product >= val;
+      const isCurrent = data.scores.product === val;
+      html += `<div class="progression-item ${isCurrent ? 'active-current product-current' : ''}"
+        style="opacity:${isActive ? 1 : 0.35};${isCurrent ? 'background:rgba(199,125,186,0.08)' : ''}">
+        <div class="progression-num" style="color:var(--product)">${val}</div>
+        <div>
+          <div class="progression-name">${name}${isCurrent ? '<span class="current-marker" style="color:var(--product)">&larr; CURRENT</span>' : ''}</div>
+          <p class="progression-desc">${PRODUCT_PROGRESSION[i]}</p>
+        </div>
+      </div>`;
+    });
+    el.innerHTML = html;
+  }
+
+  else if (selectedTab === 'ai') {
+    const axis = AXES.find(a => a.key === 'ai');
+    let html = `<div class="rationale-box ai-box">
+      <h3 style="color:var(--accent)">AI Utilisation — Design rationale</h3>
+      <p>AI is becoming as foundational to engineering as version control or CI/CD. Rather than adding AI to every existing axis
+      (which would conflate AI skill with domain-specific competence), this dedicated vector measures a developer's ability
+      to leverage AI tools effectively and responsibly. It spans from basic tool adoption through to pioneering new
+      AI-augmented engineering practices. It also explicitly includes governance, reliability, and ethical considerations
+      at senior levels — reflecting that AI utilisation isn't just about productivity, it's about judgment.</p>
+    </div>
+    <h4 class="section-heading" style="color:var(--accent)">PROGRESSION AT EACH LEVEL</h4>`;
+
+    axis.levels.forEach((name, i) => {
+      const val = i + 1;
+      const isActive = data.scores.ai >= val;
+      const isCurrent = data.scores.ai === val;
+      html += `<div class="progression-item ${isCurrent ? 'active-current' : ''}"
+        style="opacity:${isActive ? 1 : 0.35};${isCurrent ? 'background:rgba(0,180,216,0.08)' : ''}">
+        <div class="progression-num" style="color:var(--accent)">${val}</div>
+        <div>
+          <div class="progression-name">${name}${isCurrent ? '<span class="current-marker" style="color:var(--accent)">&larr; CURRENT</span>' : ''}</div>
+          <p class="progression-desc">${AI_PROGRESSION[i]}</p>
+        </div>
+      </div>`;
+    });
+
+    html += `<div class="design-rationale">
+      <h4>WHY A SEPARATE AXIS (NOT EMBEDDED)?</h4>
+      <p><strong>Clarity of expectation:</strong> A dedicated axis makes AI competence explicitly measurable and discussable in career conversations.</p>
+      <p><strong>Avoids dilution:</strong> Embedding AI into Technology or System would blur what we're actually measuring on those axes.</p>
+      <p><strong>Future-proof:</strong> As AI tooling evolves rapidly, a separate axis can be updated independently without restructuring the entire framework.</p>
+    </div>`;
+
+    el.innerHTML = html;
+  }
+}
+
+init();
+</script>
+</body>
+</html>
