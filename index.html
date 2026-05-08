@@ -416,17 +416,17 @@ const AXES = [
 ];
 
 const LEVELS_META = [
-  { id:"D1", title:"Developer 1", senior:false },
-  { id:"D2", title:"Developer 2", senior:false },
-  { id:"D3", title:"Developer 3", senior:false },
-  { id:"D4", title:"Developer 4", senior:true },
-  { id:"D5", title:"Developer 5", senior:true },
-  { id:"D6", title:"Developer 6", senior:true },
-  { id:"D7", title:"Developer 7", senior:true },
+  { id:"L1", title:"Developer 1", senior:false },
+  { id:"L2", title:"Developer 2", senior:false },
+  { id:"L3", title:"Developer 3", senior:false },
+  { id:"L4", title:"Developer 4", senior:true },
+  { id:"L5", title:"Developer 5", senior:true },
+  { id:"L6", title:"Developer 6", senior:true },
+  { id:"L7", title:"Developer 7", senior:true },
 ];
 
 const DATA = {
-  D1: {
+  L1: {
     scores: { technology:1, system:1, people:1, process:1, influence:1, product:1, ai:1 },
     details: {
       technology: { verb:"Adopts", desc:"Actively learns and adopts the technology and tools defined by the team." },
@@ -438,7 +438,7 @@ const DATA = {
       ai: { verb:"Uses", desc:"Uses AI coding assistants (e.g. copilot, chat-based tools) for code completion, boilerplate generation, and learning unfamiliar APIs. Understands AI output must be reviewed and tested." },
     }
   },
-  D2: {
+  L2: {
     scores: { technology:1, system:2, people:2, process:2, influence:1, product:1, ai:1 },
     details: {
       technology: { verb:"Adopts", desc:"Actively learns and adopts the technology and tools defined by the team." },
@@ -450,7 +450,7 @@ const DATA = {
       ai: { verb:"Uses", desc:"Regularly uses AI tools to accelerate development. Applies effective prompting to get higher-quality outputs. Can distinguish between helpful and unreliable AI suggestions." },
     }
   },
-  D3: {
+  L3: {
     scores: { technology:2, system:2, people:2, process:3, influence:2, product:2, ai:2 },
     details: {
       technology: { verb:"Specializes", desc:"Is the go-to person for one or more technologies and takes initiative to learn new ones." },
@@ -462,7 +462,7 @@ const DATA = {
       ai: { verb:"Integrates", desc:"Integrates AI tools into personal and team workflows beyond code completion — using them for test generation, documentation, code review prep, and debugging. Shares effective AI practices with teammates." },
     }
   },
-  D4: {
+  L4: {
     scores: { technology:3, system:3, people:3, process:3, influence:2, product:3, ai:3 },
     details: {
       technology: { verb:"Evangelizes", desc:"Researches, creates proofs of concept and introduces new technologies to the team." },
@@ -474,7 +474,7 @@ const DATA = {
       ai: { verb:"Orchestrates", desc:"Orchestrates AI across the development lifecycle — automated testing pipelines, AI-assisted code review, intelligent monitoring. Evaluates when AI adds value vs. introduces risk. Establishes team guidelines for responsible AI use in production code." },
     }
   },
-  D5: {
+  L5: {
     scores: { technology:4, system:4, people:3, process:4, influence:3, product:3, ai:3 },
     details: {
       technology: { verb:"Masters", desc:"Has very deep knowledge about the whole technology stack of the system." },
@@ -486,7 +486,7 @@ const DATA = {
       ai: { verb:"Orchestrates", desc:"Defines AI-augmented engineering practices across multiple teams. Evaluates and recommends AI tooling at the org level. Understands the cost, latency, and reliability trade-offs of AI-powered features in production systems." },
     }
   },
-  D6: {
+  L6: {
     scores: { technology:5, system:5, people:3, process:4, influence:4, product:4, ai:4 },
     details: {
       technology: { verb:"Creates", desc:"Designs and creates new technologies that are widely used either by internal or external teams." },
@@ -498,7 +498,7 @@ const DATA = {
       ai: { verb:"Architects", desc:"Architects AI-native systems and platforms. Designs the organisation's approach to AI in the development lifecycle — from coding to deployment to observability. Sets policy on AI governance, data handling, and model reliability for engineering." },
     }
   },
-  D7: {
+  L7: {
     scores: { technology:5, system:5, people:3, process:4, influence:5, product:5, ai:5 },
     details: {
       technology: { verb:"Creates", desc:"Designs and creates new technologies that are widely used either by internal or external teams." },
@@ -528,7 +528,7 @@ const AI_PROGRESSION = [
   "Pioneers novel AI-augmented engineering approaches that influence the industry. Contributes to open-source AI tooling and shapes the broader conversation on AI in software development, including ethics and limitations.",
 ];
 
-let selectedLevel = "D4";
+let selectedLevel = "L4";
 let selectedTab = "overview";
 
 function init() {
